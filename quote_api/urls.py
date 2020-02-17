@@ -1,7 +1,6 @@
-from django.contrib import admin
 from django.urls import path, include
 
-from api.custom_router import DocumentedRouter
+from quote_api.custom_router import DocumentedRouter
 
 router = DocumentedRouter()
 
