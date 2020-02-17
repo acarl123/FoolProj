@@ -1,14 +1,14 @@
 from django.db import models
 
 class Company(models.Model):
-    companyName = models.CharField(primary_key=True, max_length=50)
+    companyName = models.CharField(max_length=50)
     symbol = models.CharField(max_length=50)
     exchange = models.CharField(max_length=50)
     exchangeName = models.CharField(max_length=50)
     isoAlpha2CountryCode = models.CharField(max_length=50)
     isoAlpha3CountryCode = models.CharField(max_length=50)
-    sector = models.CharField(max_length=50)
-    industry = models.CharField(max_length=50)
+    sector = models.CharField(max_length=50, blank=True, null=True)
+    industry = models.CharField(max_length=50, blank=True, null=True)
     description = models.CharField(max_length=250)
     currencyCode = models.CharField(max_length=50)
     instrumentId = models.IntegerField()
@@ -22,13 +22,13 @@ class Company(models.Model):
     exDivDate = models.DateTimeField(auto_now=False, auto_now_add=False)
     divPayDate = models.DateTimeField(auto_now=False, auto_now_add=False)
     assetClass = models.IntegerField()
-    chartUrl = models.URLField(max_length=200)
+    chartUrl = models.URLField(max_length=200, blank=True, null=True)
     isRealTime = models.BooleanField()
     maturityDate = models.DateTimeField(auto_now=False, auto_now_add=False)
     openInterest = models.IntegerField()
     seoName = models.CharField(max_length=50)
-    idcMdgId = models.IntegerField()
-    website = models.URLField(max_length=200)
+    idcMdgId = models.IntegerField(blank=True, null=True)
+    website = models.URLField(max_length=200, blank=True, null=True)
     beta3Y = models.FloatField()
     homeCountryCode = models.CharField(max_length=50, blank=True, null=True)
     grossMargin = models.FloatField()
@@ -57,107 +57,107 @@ class Company(models.Model):
     previousYield = models.ForeignKey("PreviousYield", on_delete=models.CASCADE)
 
 
-    class Year1ForwardEPSEstimate(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class Year1ForwardEPSEstimate(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class Year2ForwardEPSEstimate(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class Year2ForwardEPSEstimate(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class Change(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class Change(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class ClosePrice(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
-
-    
-    class CurrentPrice(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.models.IntegerField()
+class ClosePrice(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class OpenPrice(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class CurrentPrice(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class MarketCap(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class OpenPrice(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class MarketCapChange(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class MarketCap(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class EarningsPerShare(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class MarketCapChange(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class PercentChange(models.Model):
-        value = models.FloatField()
+class EarningsPerShare(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class DailyRange(models.Model):
-        minimum = models.ForeignKey("Minimum", on_delete=models.CASCADE)
-        maximum = models.ForeignKey("Maximum", on_delete=models.CASCADE)
+class PercentChange(models.Model):
+    value = models.FloatField()
 
 
-    class FiftyTwoWeekRange(models.Model):
-        minimum = models.ForeignKey("Minimum", on_delete=models.CASCADE)
-        maximum = models.ForeignKey("Maximum", on_delete=models.CASCADE)
+class DailyRange(models.Model):
+    minimum = models.ForeignKey("Minimum", on_delete=models.CASCADE)
+    maximum = models.ForeignKey("Maximum", on_delete=models.CASCADE)
 
 
-    class AnnualDividend(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class FiftyTwoWeekRange(models.Model):
+    minimum = models.ForeignKey("Minimum", on_delete=models.CASCADE)
+    maximum = models.ForeignKey("Maximum", on_delete=models.CASCADE)
 
 
-    class DividendYield(models.Model):
-        value = models.FloatField()
+class AnnualDividend(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class PercentOfSharesTraded(models.Model):
-        value = models.FloatField()
+class DividendYield(models.Model):
+    value = models.FloatField()
 
 
-    class Bid(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class PercentOfSharesTraded(models.Model):
+    value = models.FloatField()
 
 
-    class Ask(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.IntegerField()
+class Bid(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class AskYield(models.Model):
-        value = models.FloatField()
+class Ask(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
 
 
-    class BidYield(models.Model):
-        value = models.FloatField()
+class AskYield(models.Model):
+    value = models.FloatField()
 
 
-    class OpenYield(models.Model):
-        value = models.FloatField()
+class BidYield(models.Model):
+    value = models.FloatField()
 
 
-    class PreviousYield(models.Model):
-        value = models.FloatField()
+class OpenYield(models.Model):
+    value = models.FloatField()
 
-    class Minimum(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.models.IntegerField()
 
-    class Maximum(models.Model):
-        amount = models.CharField(max_length=50)
-        currency = models.models.IntegerField()
+class PreviousYield(models.Model):
+    value = models.FloatField()
+
+class Minimum(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
+
+class Maximum(models.Model):
+    amount = models.CharField(max_length=50)
+    currency = models.IntegerField()
