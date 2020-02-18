@@ -1,9 +1,15 @@
 from django.urls import path, include
 from rest_framework import routers
 
+from content_api.views.ArticlesViewSet import ArticleViewSet
+from content_api.views.TagViewSet import TagViewSet
+
 router = routers.DefaultRouter()
+router.register(r'articles', ArticleViewSet)
+router.register(r'tags', TagViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
     path(r'^api-auth/', include('rest_framework.urls')),
+    path(r'article-by-slug', ArticleViewSet.as_view({'get': 'get_by_tag_slug'})),
 ]

@@ -35,7 +35,7 @@ def set_attrs(models_module, model_class, attributes):
         if type(attr_val) == dict:
             attr_name = attr_name[0].upper() + attr_name[1:]
             attr_val = set_attrs(models_module, getattr(models_module, attr_name), attr_val)
-        if type(attr_val) == list: # m2m rel
+        if type(attr_val) == list: # m2m rel # TODO: this is gross and I want to fix it
             obj.save()
             for nested_val in attr_val:
                 attr_name = attr_name[0].upper() + attr_name[1:]
