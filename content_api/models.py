@@ -115,3 +115,9 @@ class Image(models.Model):
 class Pitch(models.Model):
     text = models.TextField()
     id = models.IntegerField(primary_key=True)
+
+
+class Comment(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True)
+    message = models.TextField()
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)

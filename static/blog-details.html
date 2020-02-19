@@ -72,7 +72,7 @@
                 <p>{{ article.body |safe }}</p>
                <div class="news_d_footer flex-column flex-sm-row">
                  <a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>Lily and 4 people like this</a>
-                 <a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#"><span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>0 Comments</a>
+                 <a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#"><span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>{{ comment_list|length }} Comments</a>
                  <div class="news_socail ml-sm-auto mt-sm-0 mt-2">
                <a href="#"><i class="fab fa-facebook-f"></i></a>
                <a href="#"><i class="fab fa-twitter"></i></a>
@@ -81,24 +81,39 @@
              </div>
                </div>
               </div>
+            <div class="comments-area">
+                    <h4>{{ comment_list|length }} Comments</h4>
+                {% for comment in comment_list %}
+                    <div class="comment-list">
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+                                </div>
+                                <div class="desc">
+                                    <h5><a href="#">{{ comment.name }}</a></h5>
+                                    <p class="comment">
+                                        {{ comment.message }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
                 <div class="comment-form">
                     <h4>Leave a Reply</h4>
-                    <form>
+                    <form action="{% url 'submit-comment' %}" target="_self" method="post" id="commentForm">
                         <div class="form-group form-inline">
                           <div class="form-group col-lg-6 col-md-6 name">
-                            <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
+                            <input name="name" type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 email">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
-                          </div>										
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
                         </div>
                         <div class="form-group">
                             <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                         </div>
-                        <a href="#" class="button submit_btn">Post Comment</a>	
+                        <input id="articleid" type="text" name="article" value="{{ article.id }}" style="display: none;">
+                        <a href="#" class="button submit_btn" onclick="document.getElementById('commentForm').submit();">Post Comment</a>
                     </form>
                 </div>
         </div>
@@ -120,7 +135,7 @@
               </div>
 
               <div class="single-sidebar-widget popular-post-widget">
-                <h4 class="single-sidebar-widget__title">Popular Post</h4>
+                <h4 class="single-sidebar-widget__title">Hot Stocks</h4>
                 <div class="popular-post-list">
                   <div class="single-post-list">
                     <div class="details mt-20">

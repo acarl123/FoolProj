@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from content_api.models import Article, Tag
+from content_api.models import Article, Comment
 from quote_api.models import Company
 
 
@@ -22,7 +22,9 @@ class ArticleView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         article = Article.objects.get(pk=self.kwargs['article_id'])
+        comments = Comment.objects.filter(article=article)
         context['article'] = article
         context['company_list'] = Company.objects.all()
+        context['comment_list'] = comments
 
         return context
