@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+python find_and_kill_server.py
 pip install -r requirements.txt
 python manage.py migrate
 python import_data.py

@@ -16,5 +16,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     def submit_comment(self, request):
         data = request.data
         comment = Comment(name=data['name'], message=data['message'], article_id=data['article'])
+        if not comment.name:
+            comment.name = "Anonymous"
         comment.save()
         return redirect('/articles/{}'.format(data['article']))
